@@ -1,0 +1,43 @@
+**Step 1:**
+	Setup the STATIC IP and DNS on the windows server system
+**Step 2:**
+	Checking the powershell version
+	```text
+		$PSVersionTable.PSVersion
+		Get-Host
+	```
+**Step 3:**
+	Installing AD with Powershell version 5
+	```text
+		Install-windowsfeature 	AD-domain-services
+	```
+	Import AD command module
+	```text
+		Import-Module ADDSDeployment
+	```
+	Installing the AD as the first domain controller in a new forest
+	```text
+		Install-ADDSForest -CreateDnsDelegation:$false ` -DatabasePath "C:\Windows\NTDS" ` -DomainMode "Win2012R2" ` -DomainName "server1.ad.local" ` -DomainNetbiosName "server1" `  -ForestMode "Win2012R2" `  -InstallDns:$true `  -LogPath "C:\Windows\NTDS" `  -NoRebootOnCompletion:$false `  -SysvolPath "C:\Windows\SYSVOL" `  -Force:$true
+	```
+	Installing remote server administration tools pack (RSAT)
+	```text
+		Install-WindowsFeature RSAT-ADDS	
+		//After installing RSAT, you can view "Active Directory Users and Computers" under windows administrative tools.
+	```
+**Step 4:**
+	Adding domain users via cmd / ps
+	```text
+		net user user1 Passw0rd! /ADD /DOMAIN
+	```
+	Adding this user1 to the group "Domain Admins"
+	```text
+		net group "Domain Admins" user1 /add
+	```
+	To list all the domains users in a domain
+	```text
+		net users /domain
+	```
+	To verify that a user is added in a domain administrative group.
+	```text
+		net group /domain "Domain Admins"
+	```
