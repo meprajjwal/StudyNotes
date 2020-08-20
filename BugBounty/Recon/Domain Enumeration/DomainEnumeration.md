@@ -33,7 +33,7 @@ Subdomain Enumeration
 
 		Google Dorks
 
-			![GoogleDork Operator List](google-dork.jpg)
+![GoogleDork Operator List](google-dork.jpg)
 			eg.
 				site:google.com
 				site:google.com -www -cloud
